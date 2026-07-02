@@ -119,12 +119,13 @@ body{
 
 /* ═══ HIDDEN CARDS ═══ */
 .hidden-card{
-  position:absolute; width:30px; height:30px; font-size:1.3rem;
+  position:absolute; width:44px; height:44px; font-size:1.3rem;
   display:flex; align-items:center; justify-content:center;
-  cursor:pointer; opacity:0.4; z-index:6; user-select:none;
+  cursor:pointer; opacity:0.45; z-index:60; user-select:none;
   filter:drop-shadow(0 0 6px rgba(224,180,100,0.5));
   animation:hcFloat 3.5s ease-in-out infinite;
   transition:opacity 0.4s, transform 0.4s;
+  touch-action:manipulation;
 }
 .hidden-card:hover{opacity:0.9; transform:scale(1.25);}
 .hidden-card.found{opacity:0.08; pointer-events:none; filter:none; animation:none;}
@@ -159,7 +160,7 @@ body{
 @keyframes bounceDown{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
 /* ═══ SECTIONS ═══ */
-section.content-sec{position:relative; z-index:1; padding:clamp(3rem,8vw,5.5rem) clamp(1.2rem,5vw,2rem);}
+section.content-sec{position:relative; z-index:1; padding:clamp(3rem,8vw,5.5rem) clamp(1.2rem,5vw,2rem); overflow:visible;}
 .sec-inner{max-width:820px; margin:0 auto; position:relative;}
 .sec-tag{display:block; font-family:'Parisienne',cursive; font-size:clamp(1rem,3vw,1.25rem); color:var(--lilac); margin-bottom:0.5rem; opacity:0.9;}
 .sec-title{font-family:'Cinzel',serif; font-size:clamp(1.5rem,5.2vw,2.6rem); font-weight:700; line-height:1.2; margin-bottom:1.3rem; color:var(--cream);}
@@ -178,7 +179,7 @@ section.content-sec{position:relative; z-index:1; padding:clamp(3rem,8vw,5.5rem)
 .road-step p{font-size:0.85rem; color:var(--text-dim); line-height:1.6;}
 
 /* reasons */
-.reasons-sec{background:linear-gradient(180deg,#0b0f27 0%,#141a42 50%,#0b0f27 100%);}
+.reasons-sec{background:linear-gradient(180deg,#0b0f27 0%,#141a42 50%,#0b0f27 100%); min-height:500px;}
 .cards-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:clamp(0.8rem,2vw,1.2rem); margin-top:2.4rem;}
 .card{background:rgba(20,26,66,0.5); border:1px solid rgba(224,180,100,0.16); border-radius:20px; padding:clamp(1.2rem,3vw,1.7rem) clamp(1rem,3vw,1.3rem); text-align:center; transition:transform 0.35s cubic-bezier(.34,1.56,.64,1), border-color 0.3s, box-shadow 0.3s; position:relative; overflow:hidden;}
 .card:hover{transform:translateY(-8px); border-color:rgba(224,180,100,0.4); box-shadow:0 12px 40px rgba(122,92,255,0.15);}
@@ -186,12 +187,12 @@ section.content-sec{position:relative; z-index:1; padding:clamp(3rem,8vw,5.5rem)
 .card h3{font-family:'Cinzel',serif; font-size:clamp(0.85rem,2.3vw,0.98rem); font-weight:700; margin-bottom:0.5rem; color:var(--cream);}
 .card p{font-size:clamp(0.78rem,1.9vw,0.88rem); line-height:1.6; color:var(--text-dim); font-weight:300;}
 
-footer{text-align:center; padding:clamp(2rem,5vw,3.2rem) 2rem; background:linear-gradient(180deg,#0b0f27,#05070f); position:relative; z-index:1; border-top:1px solid rgba(224,180,100,0.15);}
+footer{text-align:center; padding:clamp(2rem,5vw,3.2rem) 2rem; background:linear-gradient(180deg,#0b0f27,#05070f); position:relative; z-index:1; border-top:1px solid rgba(224,180,100,0.15); min-height:140px; overflow:visible;}
 .footer-star{font-size:clamp(2rem,7vw,3rem); display:block; margin-bottom:0.5rem; animation:twinkleBig 2s infinite; filter:drop-shadow(0 0 20px rgba(224,180,100,0.6));}
 footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem); color:var(--text-dim);}
 
 /* ═══ RIDDLES PAGE ═══ */
-#riddles{min-height:100vh; background:linear-gradient(180deg,#05070f 0%,#141a42 50%,#05070f 100%);}
+#riddles{min-height:130vh; background:linear-gradient(180deg,#05070f 0%,#141a42 50%,#05070f 100%); position:relative;}
 .rp-head{text-align:center; padding:1.5rem 1rem 0.5rem;}
 .rp-head h1{font-family:'Cinzel',serif; font-size:clamp(1.4rem,4.6vw,2.1rem); color:var(--gold-soft); text-shadow:0 0 25px rgba(224,180,100,0.4);}
 .rp-head p{font-style:italic; color:var(--text-dim); font-size:0.9rem; margin-top:0.4rem;}
@@ -210,7 +211,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 .q-result{text-align:center; font-family:'Parisienne',cursive; font-size:1.15rem; color:var(--gold-soft); min-height:1.8em; margin-top:0.4rem;}
 
 /* ═══ GAMES PAGE ═══ */
-#games{min-height:100vh; background:linear-gradient(180deg,#05070f 0%,#141a42 50%,#05070f 100%); padding-bottom:2rem;}
+#games{min-height:100vh; background:linear-gradient(180deg,#05070f 0%,#141a42 50%,#05070f 100%); padding-bottom:2rem; position:relative;}
 .game-card{background:rgba(20,26,66,0.55); border:1px solid rgba(224,180,100,0.2); border-radius:22px; padding:clamp(1.2rem,4vw,2rem); margin:0 auto 2rem; max-width:600px; box-shadow:0 0 40px rgba(0,0,0,0.3); position:relative;}
 .game-card h2{font-family:'Cinzel',serif; font-size:clamp(1.05rem,3vw,1.3rem); color:var(--cream); margin-bottom:0.3rem;}
 .game-card .gsub{font-size:0.85rem; color:var(--text-dim); font-style:italic; margin-bottom:1.1rem;}
@@ -249,7 +250,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 #memStatus{text-align:center; font-family:'Parisienne',cursive; font-size:1.05rem; color:var(--gold-soft); min-height:1.6em; margin-top:0.8rem;}
 
 /* ═══ CARDS GALLERY PAGE ═══ */
-#cards{min-height:100vh; background:linear-gradient(180deg,#05070f 0%,#141a42 50%,#05070f 100%); padding-bottom:2.5rem;}
+#cards{min-height:100vh; background:linear-gradient(180deg,#05070f 0%,#141a42 50%,#05070f 100%); padding-bottom:2.5rem; position:relative;}
 .gal-head{text-align:center; padding:1.6rem 1rem 0.4rem;}
 .gal-head h1{font-family:'Cinzel',serif; font-size:clamp(1.4rem,4.6vw,2.1rem); color:var(--gold-soft); text-shadow:0 0 25px rgba(224,180,100,0.4);}
 .gal-count{font-family:'Parisienne',cursive; font-size:1.2rem; color:var(--lilac-soft); margin-top:0.5rem;}
@@ -286,6 +287,69 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 .big-letter-sign{margin-top:2.2rem; font-family:'Parisienne',cursive; font-size:clamp(1.2rem,3.6vw,1.5rem); color:var(--gold-soft); text-align:right; text-shadow:0 0 20px rgba(224,180,100,0.35);}
 #closeLetterBtn{display:block; margin:2rem auto 0; background:none; border:1px solid rgba(224,180,100,0.35); color:var(--gold-soft); font-family:'Cinzel',serif; font-size:0.78rem; padding:0.6rem 1.6rem; border-radius:9999px; cursor:pointer;}
 #letterStars{position:fixed; inset:0; z-index:1999; pointer-events:none; display:none;}
+
+/* ═══ ALBUM DE FOTOS/VÍDEOS ═══ */
+#albumModal{
+  display:none; position:fixed; inset:0; z-index:2500;
+  background:rgba(2,3,8,0.95); backdrop-filter:blur(14px);
+  align-items:flex-start; justify-content:center; overflow-y:auto; padding:2rem 1rem;
+}
+#albumModal.open{display:flex;}
+.album-inner{
+  position:relative; max-width:920px; width:100%;
+  animation:letterReveal 0.7s cubic-bezier(.34,1.56,.64,1) both;
+}
+.album-head{text-align:center; margin-bottom:2rem;}
+.album-head .ah-deco{font-size:clamp(1.9rem,7vw,2.6rem); margin-bottom:0.6rem; filter:drop-shadow(0 0 20px rgba(224,180,100,0.6)); animation:twinkleBig 2s infinite;}
+.album-head h2{font-family:'Cinzel',serif; font-size:clamp(1.3rem,4.4vw,2rem); color:var(--gold-soft); text-shadow:0 0 30px rgba(224,180,100,0.4);}
+.album-head p{font-family:'Parisienne',cursive; font-size:clamp(1rem,3vw,1.25rem); color:var(--lilac-soft); margin-top:0.5rem;}
+.album-grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));
+  gap:0.9rem; margin-top:1.5rem;
+}
+.album-item{
+  position:relative; aspect-ratio:1; border-radius:16px; overflow:hidden; cursor:pointer;
+  border:1px solid rgba(224,180,100,0.25); background:rgba(20,26,66,0.5);
+  transition:transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.album-item:hover{transform:translateY(-4px) scale(1.03); border-color:rgba(224,180,100,0.55); box-shadow:0 10px 30px rgba(122,92,255,0.2);}
+.album-item img, .album-item video{width:100%; height:100%; object-fit:cover; display:block;}
+.album-item .av-play{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(5,7,15,0.25); font-size:1.8rem; color:var(--cream);
+  filter:drop-shadow(0 0 10px rgba(0,0,0,0.6));
+}
+.album-item .av-icon{
+  position:absolute; top:6px; right:6px; font-size:0.85rem; opacity:0.85;
+  filter:drop-shadow(0 0 4px rgba(0,0,0,0.6));
+}
+.album-empty{
+  text-align:center; color:var(--text-dim); font-style:italic; font-size:0.9rem;
+  padding:2rem; border:1px dashed rgba(224,180,100,0.25); border-radius:16px; margin-top:1.5rem;
+}
+#closeAlbumBtn{
+  display:block; margin:2.2rem auto 0; background:none; border:1px solid rgba(224,180,100,0.35);
+  color:var(--gold-soft); font-family:'Cinzel',serif; font-size:0.78rem;
+  padding:0.6rem 1.6rem; border-radius:9999px; cursor:pointer;
+}
+
+/* Lightbox de visualização individual */
+#lightbox{
+  display:none; position:fixed; inset:0; z-index:2600;
+  background:rgba(2,3,8,0.97); align-items:center; justify-content:center; padding:1.5rem;
+}
+#lightbox.open{display:flex;}
+#lightbox .lb-content{max-width:92vw; max-height:82vh; display:flex; align-items:center; justify-content:center;}
+#lightbox img, #lightbox video{max-width:92vw; max-height:82vh; border-radius:14px; box-shadow:0 0 60px rgba(122,92,255,0.25);}
+.lb-close, .lb-nav{
+  position:fixed; background:rgba(11,15,39,0.7); border:1px solid rgba(224,180,100,0.3);
+  color:var(--gold-soft); border-radius:50%; width:44px; height:44px; font-size:1.1rem;
+  display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2610;
+}
+.lb-close{top:1.2rem; right:1.2rem;}
+.lb-prev{left:1.2rem; top:50%; transform:translateY(-50%);}
+.lb-next{right:1.2rem; top:50%; transform:translateY(-50%);}
+
 
 /* ═══ MUSIC BAR ═══ */
 .music-bar{position:fixed; bottom:1.2rem; right:0.8rem; left:0.8rem; z-index:998; display:flex; align-items:center; gap:0.55rem; background:rgba(8,10,25,0.9); backdrop-filter:blur(20px); border:1px solid rgba(224,180,100,0.25); border-radius:9999px; padding:0.45rem 1rem 0.45rem 0.45rem; box-shadow:0 4px 30px rgba(0,0,0,0.5); max-width:480px; margin:0 auto;}
@@ -396,7 +460,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
     <div class="hidden-card" id="card3" style="top:20%; left:48%;" data-msg="2">✦</div>
   </footer>
   <div class="hidden-card" id="card4" style="top:14%; left:85%;" data-msg="3">✦</div>
-  <div class="hidden-card" id="card5" style="top:88%; left:10%;" data-msg="4">✦</div>
+  <div class="hidden-card" id="card5" style="top:38%; left:10%;" data-msg="4">✦</div>
 </section>
 
 <!-- ══════════ TAB 2: RIDDLES ══════════ -->
@@ -419,8 +483,8 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 
   <div class="hidden-card" id="card6" style="top:8%; left:6%;" data-msg="5">✦</div>
   <div class="hidden-card" id="card7" style="top:35%; right:6%;" data-msg="6">✦</div>
-  <div class="hidden-card" id="card8" style="top:70%; left:8%;" data-msg="7">✦</div>
-  <div class="hidden-card" id="card9" style="top:92%; right:10%;" data-msg="8">✦</div>
+  <div class="hidden-card" id="card8" style="top:60%; left:8%;" data-msg="7">✦</div>
+  <div class="hidden-card" id="card9" style="top:80%; right:10%;" data-msg="8">✦</div>
 </section>
 
 <!-- ══════════ TAB 3: GAMES ══════════ -->
@@ -482,9 +546,9 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
   </div>
 
   <div class="hidden-card" id="card10" style="top:5%; right:5%;" data-msg="9">✦</div>
-  <div class="hidden-card" id="card11" style="top:45%; left:4%;" data-msg="10">✦</div>
-  <div class="hidden-card" id="card12" style="top:75%; right:6%;" data-msg="11">✦</div>
-  <div class="hidden-card" id="card13" style="top:97%; left:50%;" data-msg="12">✦</div>
+  <div class="hidden-card" id="card11" style="top:35%; left:4%;" data-msg="10">✦</div>
+  <div class="hidden-card" id="card12" style="top:60%; right:6%;" data-msg="11">✦</div>
+  <div class="hidden-card" id="card13" style="top:85%; left:50%;" data-msg="12">✦</div>
 </section>
 
 <!-- ══════════ TAB 4: HIDDEN CARDS GALLERY ══════════ -->
@@ -498,8 +562,8 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
   <div class="gal-cta"><p style="font-size:0.85rem;color:var(--text-dim);font-style:italic;">continue explorando as abas anteriores pra achar as que faltam ✦</p></div>
 
   <div class="hidden-card" id="card14" style="top:8%; left:4%;" data-msg="13">✦</div>
-  <div class="hidden-card" id="card15" style="top:50%; right:4%;" data-msg="14">✦</div>
-  <div class="hidden-card" id="card16" style="top:90%; left:45%;" data-msg="15">✦</div>
+  <div class="hidden-card" id="card15" style="top:40%; right:4%;" data-msg="14">✦</div>
+  <div class="hidden-card" id="card16" style="top:70%; left:45%;" data-msg="15">✦</div>
 </section>
 
 <!-- ══════════ TAB 5: FINAL LETTER ══════════ -->
@@ -534,8 +598,29 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
     </div>
     <div class="big-letter-divider"></div>
     <p class="big-letter-sign">com todo o meu universo ✦<br><em style="font-size:0.82em;color:var(--text-dim)">— seu(sua)</em></p>
-    <button id="closeLetterBtn">Fechar ✦</button>
+    <button id="closeLetterBtn">Já li ✦</button>
   </div>
+</div>
+
+<!-- ALBUM DE FOTOS/VÍDEOS -->
+<div id="albumModal">
+  <div class="album-inner">
+    <div class="album-head">
+      <div class="ah-deco">🖼️</div>
+      <h2>Nossos <em style="font-style:normal;color:var(--gold-soft);">momentos</em></h2>
+      <p>cada foto aqui é um pedacinho da nossa história ✦</p>
+    </div>
+    <div class="album-grid" id="albumGrid"></div>
+    <button id="closeAlbumBtn">Fechar ✦</button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lb-close" id="lbClose">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev">‹</button>
+  <div class="lb-content" id="lbContent"></div>
+  <button class="lb-nav lb-next" id="lbNext">›</button>
 </div>
 
 <!-- CARD FOUND MODAL -->
@@ -1130,9 +1215,106 @@ function closeLetter(){
 }
 document.getElementById('openLetterBtn').addEventListener('click', openLetter);
 document.getElementById('envelopeBtn').addEventListener('click', openLetter);
-document.getElementById('closeLetterBtn').addEventListener('click', closeLetter);
+document.getElementById('closeLetterBtn').addEventListener('click', ()=>{
+  closeLetter();
+  openAlbum();
+});
 document.getElementById('bigLetterModal').addEventListener('click', e=>{
   if(e.target===document.getElementById('bigLetterModal')) closeLetter();
+});
+
+/* ════════════════════════════════
+   ÁLBUM DE FOTOS/VÍDEOS (pasta "fotos/")
+════════════════════════════════ */
+/* ✏️ EDITE AQUI: liste os nomes dos arquivos que estão dentro da pasta "fotos/"
+   (a pasta "fotos" deve ficar no mesmo diretório que este index.html).
+   Aceita fotos (jpg, jpeg, png, webp, gif) e vídeos (mp4, mov, webm). */
+const albumFiles = [
+  'fotos/foto1.jpg',
+  'fotos/foto2.jpg',
+  'fotos/foto3.jpg',
+  'fotos/foto4.jpg',
+  'fotos/foto5.jpg',
+  'fotos/foto6.jpg',
+  'fotos/video1.mp4',
+  'fotos/video2.mp4',
+];
+
+const videoExts = ['mp4','mov','webm','m4v'];
+function isVideoFile(path){
+  const ext = path.split('.').pop().toLowerCase();
+  return videoExts.includes(ext);
+}
+
+let albumItemsData = [];
+function buildAlbum(){
+  const grid = document.getElementById('albumGrid');
+  grid.innerHTML = '';
+  albumItemsData = albumFiles.map((path,i)=>({path, isVideo:isVideoFile(path), idx:i}));
+
+  if(albumItemsData.length===0){
+    grid.innerHTML = '<div class="album-empty">Nenhuma foto ou vídeo cadastrado ainda. Edite a lista "albumFiles" no código com os arquivos da pasta fotos/.</div>';
+    return;
+  }
+
+  albumItemsData.forEach(item=>{
+    const cell = document.createElement('div');
+    cell.className = 'album-item';
+    if(item.isVideo){
+      cell.innerHTML = `<video src="${item.path}" muted playsinline preload="metadata"></video><span class="av-play">▶</span><span class="av-icon">🎬</span>`;
+    } else {
+      cell.innerHTML = `<img src="${item.path}" alt="momento nosso" loading="lazy"><span class="av-icon">📷</span>`;
+    }
+    cell.addEventListener('click', ()=> openLightbox(item.idx));
+    grid.appendChild(cell);
+  });
+}
+
+function openAlbum(){
+  buildAlbum();
+  document.getElementById('albumModal').classList.add('open');
+}
+function closeAlbum(){
+  document.getElementById('albumModal').classList.remove('open');
+}
+document.getElementById('closeAlbumBtn').addEventListener('click', closeAlbum);
+document.getElementById('albumModal').addEventListener('click', e=>{
+  if(e.target===document.getElementById('albumModal')) closeAlbum();
+});
+
+let lbIndex = 0;
+function openLightbox(idx){
+  lbIndex = idx;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+}
+function renderLightbox(){
+  const item = albumItemsData[lbIndex];
+  const content = document.getElementById('lbContent');
+  content.innerHTML = '';
+  if(item.isVideo){
+    content.innerHTML = `<video src="${item.path}" controls autoplay playsinline></video>`;
+  } else {
+    content.innerHTML = `<img src="${item.path}" alt="momento nosso">`;
+  }
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lbContent').innerHTML = '';
+}
+function lbNext(){ lbIndex = (lbIndex+1) % albumItemsData.length; renderLightbox(); }
+function lbPrev(){ lbIndex = (lbIndex-1+albumItemsData.length) % albumItemsData.length; renderLightbox(); }
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbNext').addEventListener('click', lbNext);
+document.getElementById('lbPrev').addEventListener('click', lbPrev);
+document.getElementById('lightbox').addEventListener('click', e=>{
+  if(e.target===document.getElementById('lightbox')) closeLightbox();
+});
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowRight') lbNext();
+  if(e.key==='ArrowLeft') lbPrev();
 });
 
 /* ════════════════════════════════
