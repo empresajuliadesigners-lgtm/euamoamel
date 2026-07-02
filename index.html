@@ -239,12 +239,13 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 #simonLevel{text-align:center; font-size:0.82rem; color:var(--text-dim); margin-bottom:0.3rem;}
 
 /* memory */
-.mem-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0.6rem; max-width:420px; margin:1rem auto;}
-.mem-card{aspect-ratio:1; border-radius:12px; background:rgba(11,15,39,0.7); border:1px solid rgba(224,180,100,0.25); display:flex; align-items:center; justify-content:center; font-size:clamp(1.2rem,4vw,1.7rem); cursor:pointer; position:relative; transition:transform 0.4s;}
-.mem-card .mem-front,.mem-card .mem-back{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; backface-visibility:hidden; border-radius:12px;}
-.mem-card .mem-back{transform:rotateY(180deg); background:rgba(224,180,100,0.15);}
+.mem-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0.6rem; max-width:420px; margin:1rem auto; perspective:600px;}
+.mem-card{aspect-ratio:1; border-radius:12px; background:transparent; cursor:pointer; position:relative; transform-style:preserve-3d; transition:transform 0.4s;}
+.mem-card .mem-front,.mem-card .mem-back{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; backface-visibility:hidden; border-radius:12px; font-size:clamp(1.2rem,4vw,1.7rem);}
+.mem-card .mem-front{background:rgba(11,15,39,0.7); border:1px solid rgba(224,180,100,0.25);}
+.mem-card .mem-back{transform:rotateY(180deg); background:rgba(224,180,100,0.15); border:1px solid rgba(224,180,100,0.4);}
 .mem-card.flipped,.mem-card.matched{transform:rotateY(180deg);}
-.mem-card.matched{opacity:0.55;}
+.mem-card.matched{opacity:0.55; cursor:default;}
 #memStatus{text-align:center; font-family:'Parisienne',cursive; font-size:1.05rem; color:var(--gold-soft); min-height:1.6em; margin-top:0.8rem;}
 
 /* ═══ CARDS GALLERY PAGE ═══ */
@@ -966,7 +967,7 @@ simonPads.forEach(pad=>{
 document.getElementById('simonStart').addEventListener('click', startSimon);
 
 /* ════════════════════════════════
-   GAME 3: MEMÓRIA
+   GAME 3: MEMÓRIA (CORRIGIDO)
 ════════════════════════════════ */
 const memEmojis = ['🌙','⭐','✨','🪐','☄️','🌠','💫','🌌'];
 const memMessages = {
@@ -980,6 +981,7 @@ const memMessages = {
   '🌌':'Nosso amor é a constelação mais linda que existe 🌌',
 };
 let memCards=[], memFlipped=[], memMatched=0, memLocked=false;
+
 function buildMemory(){
   const grid=document.getElementById('memoryGrid');
   grid.innerHTML='';
@@ -996,25 +998,46 @@ function buildMemory(){
     memCards.push(card);
   });
   document.getElementById('memStatus').textContent='Encontre os pares! ✨';
+  document.getElementById('memStart').textContent='↻ Embaralhar de novo';
 }
+
 function flipMemCard(card){
-  if(memLocked||card.classList.contains('flipped')||card.classList.contains('matched'))return;
+  // trava cliques durante avaliação, em carta já virada/combinada, ou na mesma carta clicada 2x
+  if(memLocked || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
   card.classList.add('flipped');
   memFlipped.push(card);
-  if(memFlipped.length===2){
-    memLocked=true;
-    const [a,b]=memFlipped;
-    if(a.dataset.em===b.dataset.em){
-      a.classList.add('matched'); b.classList.add('matched');
-      memMatched++;
-      document.getElementById('memStatus').textContent = memMessages[a.dataset.em]||'Par encontrado! 💫';
-      memFlipped=[]; memLocked=false;
-      if(memMatched===memEmojis.length){
-        setTimeout(()=>{document.getElementById('memStatus').textContent='🎉 Você encontrou todos os pares!';},400);
-        markGameDone('memory');
-      }
+
+  if(memFlipped.length === 2){
+    memLocked = true;
+    const [a,b] = memFlipped;
+
+    if(a.dataset.em === b.dataset.em){
+      // PAR CORRETO: espera um instante pra jogador ver as duas cartas, depois marca como matched
+      setTimeout(()=>{
+        a.classList.add('matched');
+        b.classList.add('matched');
+        memMatched++;
+        document.getElementById('memStatus').textContent = memMessages[a.dataset.em] || 'Par encontrado! 💫';
+        memFlipped = [];
+        memLocked = false;
+
+        if(memMatched === memEmojis.length){
+          setTimeout(()=>{
+            document.getElementById('memStatus').textContent='🎉 Você encontrou todos os pares!';
+            markGameDone('memory');
+          },400);
+        }
+      },400);
     } else {
-      setTimeout(()=>{a.classList.remove('flipped');b.classList.remove('flipped');memFlipped=[];memLocked=false;document.getElementById('memStatus').textContent='Quase! Tente de novo ✨';},900);
+      // PAR ERRADO: desvira as duas depois de um tempo
+      setTimeout(()=>{
+        a.classList.remove('flipped');
+        b.classList.remove('flipped');
+        memFlipped = [];
+        memLocked = false;
+        document.getElementById('memStatus').textContent='Quase! Tente de novo ✨';
+      },900);
     }
   }
 }
