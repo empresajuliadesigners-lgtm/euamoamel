@@ -13,95 +13,69 @@
   --soft: #ffe5f0;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
 body {
-  background: linear-gradient(135deg, #2a0033 0%, #1a0022 50%, #3a0028 100%);
+  margin: 0;
+  background: linear-gradient(135deg, #2a0033 0%, #1a0022 100%);
   color: #ffe5f0;
   font-family: 'Cormorant Garamond', serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Fundo animado romântico */
 #bgCanvas { position: fixed; inset: 0; z-index: -1; }
 
 .tab-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  background: rgba(26,0,34,0.85);
-  backdrop-filter: blur(20px);
+  background: rgba(26,0,34,0.9);
+  backdrop-filter: blur(15px);
   border-bottom: 1px solid rgba(230,57,107,0.4);
   display: flex;
-  padding: 12px 0;
+  padding: 15px 0;
+  text-align: center;
 }
 .tab-btn {
   flex: 1;
-  padding: 16px 10px;
+  padding: 14px 8px;
   background: none;
   border: none;
   color: #ffe5f0;
   font-family: 'Dancing Script', cursive;
-  font-size: clamp(1.05rem, 3.5vw, 1.35rem);
+  font-size: clamp(1.1rem, 3.8vw, 1.4rem);
   cursor: pointer;
-  transition: all 0.4s;
+  transition: 0.4s;
 }
-.tab-btn.active {
-  color: var(--gold);
-  text-shadow: 0 0 20px var(--rose);
-}
-.tab-btn.locked { opacity: 0.4; cursor: not-allowed; }
+.tab-btn.active { color: var(--gold); text-shadow: 0 0 15px var(--rose); }
+.tab-btn.locked { opacity: 0.45; cursor: not-allowed; }
 
-/* Music Player - Mais bonito */
+.tab-content { display: none; padding: 90px 20px 100px; min-height: 100vh; }
+.tab-content.active { display: block; }
+
+.game-section {
+  max-width: 700px;
+  margin: 2rem auto;
+  background: rgba(255,229,240,0.08);
+  border-radius: 24px;
+  padding: 2rem;
+  border: 1px solid rgba(230,57,107,0.3);
+}
+
+/* Music Player */
 #musicPlayer {
   position: fixed;
   bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(26,0,34,0.92);
+  background: rgba(26,0,34,0.95);
   border: 2px solid var(--rose);
   border-radius: 50px;
-  padding: 12px 28px;
+  padding: 12px 25px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 15px;
   z-index: 2000;
-  box-shadow: 0 15px 50px rgba(230,57,107,0.5);
-  backdrop-filter: blur(20px);
-}
-#musicPlayer button {
-  background: none;
-  border: none;
-  color: var(--gold);
-  font-size: 1.7rem;
-  cursor: pointer;
-  padding: 6px;
-}
-.progress-container {
-  width: 220px;
-  height: 5px;
-  background: #3a0028;
-  border-radius: 999px;
-  cursor: pointer;
-  position: relative;
-}
-.progress {
-  height: 100%;
-  background: linear-gradient(to right, var(--rose), var(--gold));
-  border-radius: 999px;
-  width: 0%;
-  transition: width 0.3s;
-}
-.volume-slider {
-  accent-color: var(--gold);
-  width: 110px;
-}
-#currentTrack {
-  font-size: 0.95rem;
-  min-width: 180px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  box-shadow: 0 15px 50px rgba(230,57,107,0.6);
 }
 </style>
 </head>
@@ -109,15 +83,13 @@ body {
 
 <canvas id="bgCanvas"></canvas>
 
-<!-- Intro -->
-<div id="introScreen" style="position:fixed;inset:0;background:linear-gradient(#4a0028,#1a0022);z-index:5000;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;color:white;">
-  <div style="font-size:7rem;margin-bottom:20px;animation:heartbeat 2.2s infinite;">💖</div>
-  <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.8rem,9vw,5.5rem);margin-bottom:10px;">Meu Universo é Você</h1>
-  <p style="font-size:1.4rem;opacity:0.9;max-width:420px;">Uma carta digital feita com todo o meu amor</p>
-  <button onclick="startJourney()" style="margin-top:40px;padding:18px 48px;font-size:1.7rem;background:linear-gradient(90deg,#e6396b,#f4c095);color:#1a0022;border:none;border-radius:50px;cursor:pointer;box-shadow:0 0 40px #e6396b;">Abrir Nosso Mundo</button>
+<!-- INTRO -->
+<div id="introScreen" style="position:fixed;inset:0;z-index:5000;background:linear-gradient(#4a0028,#1a0022);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;">
+  <h1 style="font-size:clamp(3rem,10vw,6rem);font-family:'Playfair Display',serif;color:var(--gold);">Meu Universo é Você</h1>
+  <button onclick="startJourney()" style="margin-top:40px;padding:18px 50px;font-size:1.8rem;background:linear-gradient(#e6396b,#f4c095);color:#1a0022;border:none;border-radius:50px;cursor:pointer;">Abrir com Amor</button>
 </div>
 
-<!-- Tab Bar -->
+<!-- TAB BAR -->
 <nav class="tab-bar" id="tabBar" style="display:none">
   <button class="tab-btn active" data-tab="home">🏠 Início</button>
   <button class="tab-btn locked" data-tab="journey">🌟 Nossa Jornada</button>
@@ -126,33 +98,29 @@ body {
   <button class="tab-btn locked" data-tab="finalLetter">💌 Carta Eterna</button>
 </nav>
 
-<!-- Music Player -->
+<!-- MUSIC PLAYER -->
 <div id="musicPlayer" style="display:none">
   <button onclick="prevTrack()">⏮</button>
   <button id="playPauseBtn" onclick="togglePlay()">▶</button>
   <button onclick="nextTrack()">⏭</button>
-  
-  <div class="progress-container" onclick="seek(event)">
-    <div id="progressBar" class="progress"></div>
+  <div class="progress-container" style="width:220px;height:6px;background:#3a0028;border-radius:999px;cursor:pointer;" onclick="seek(event)">
+    <div id="progressBar" style="height:100%;background:linear-gradient(to right,#e6396b,#f4c095);border-radius:999px;width:0%;"></div>
   </div>
-  
-  <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="0.85" oninput="setVolume(this.value)">
-  
-  <span id="currentTrack">Perfect - Ed Sheeran</span>
+  <input type="range" min="0" max="1" step="0.01" value="0.8" oninput="setVolume(this.value)" style="width:100px;accent-color:#f4c095;">
+  <span id="currentTrack" style="min-width:170px;font-size:0.95rem;">Perfect - Ed Sheeran</span>
 </div>
 
 <div id="ytPlayer" style="display:none;"></div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-// Playlist
+// === PLAYLIST ===
 const playlist = [
   {id: "2Vv-BfVoq4g", title: "Perfect", artist: "Ed Sheeran"},
   {id: "JGwWNGJdvx8", title: "Shape of You", artist: "Ed Sheeran"},
   {id: "lp-EO5I60KA", title: "Thinking Out Loud", artist: "Ed Sheeran"},
   {id: "0zGcQJ2v0sQ", title: "Deus é Top", artist: "Luan Santana"},
-  {id: "kXv4z6r8QfM", title: "Morena", artist: "Luan Santana"},
-  {id: "5qap5aO7eqU", title: "Incondicional", artist: "Gustavo Mioto"}
+  {id: "kXv4z6r8QfM", title: "Morena", artist: "Luan Santana"}
 ];
 
 let currentTrack = 0;
@@ -163,21 +131,20 @@ let apiReady = false;
 function onYouTubeIframeAPIReady() {
   apiReady = true;
   player = new YT.Player('ytPlayer', {
-    height: '0',
-    width: '0',
+    height: '0', width: '0',
     videoId: playlist[0].id,
-    playerVars: { autoplay: 0, controls: 0, modestbranding: 1, rel: 0 },
     events: {
-      onReady: () => document.getElementById('currentTrack').textContent = `${playlist[0].title} - ${playlist[0].artist}`,
-      onStateChange: (e) => { if (e.data === YT.PlayerState.ENDED) nextTrack(); }
+      onReady: () => document.getElementById('currentTrack').textContent = "Perfect - Ed Sheeran",
+      onStateChange: (e) => { if(e.data === YT.PlayerState.ENDED) nextTrack(); }
     }
   });
 }
 
-// Controles de Música
+// Music Controls
 function togglePlay() {
-  if (!player || !apiReady) return alert("Aguarde o carregamento da música...");
-  isPlaying ? player.pauseVideo() : player.playVideo();
+  if (!player || !apiReady) return alert("Aguarde um momento...");
+  if (isPlaying) player.pauseVideo();
+  else player.playVideo();
   document.getElementById('playPauseBtn').textContent = isPlaying ? '▶' : '❚❚';
   isPlaying = !isPlaying;
 }
@@ -186,84 +153,82 @@ function nextTrack() { currentTrack = (currentTrack + 1) % playlist.length; load
 function prevTrack() { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; loadTrack(); }
 
 function loadTrack() {
-  if (!player || !apiReady) return;
-  player.loadVideoById(playlist[currentTrack].id);
-  document.getElementById('currentTrack').textContent = `${playlist[currentTrack].title} - ${playlist[currentTrack].artist}`;
+  if (player && apiReady) {
+    player.loadVideoById(playlist[currentTrack].id);
+    document.getElementById('currentTrack').textContent = `${playlist[currentTrack].title} - ${playlist[currentTrack].artist}`;
+  }
 }
 
-function setVolume(val) {
-  if (player && apiReady) player.setVolume(val * 100);
-}
-
+function setVolume(val) { if(player && apiReady) player.setVolume(val*100); }
 function seek(e) {
-  if (!player || !apiReady) return;
+  if(!player || !apiReady) return;
   const percent = (e.clientX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth;
   player.seekTo(player.getDuration() * percent);
 }
 
-// Fundo Animado
+// Background Hearts
 const canvas = document.getElementById('bgCanvas');
 const ctx = canvas.getContext('2d');
-let W, H;
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
+let W = window.innerWidth, H = window.innerHeight;
+window.addEventListener('resize', () => { W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; });
 
 const hearts = [];
-for (let i = 0; i < 45; i++) {
-  hearts.push({
-    x: Math.random() * W,
-    y: Math.random() * H,
-    size: Math.random() * 22 + 12,
-    speed: Math.random() * 1.2 + 0.6,
-    opacity: Math.random() * 0.6 + 0.3,
-    angle: Math.random() * Math.PI * 2,
-    angleSpeed: (Math.random() - 0.5) * 0.04
-  });
+for(let i=0; i<50; i++){
+  hearts.push({x:Math.random()*W, y:Math.random()*H, size:12+Math.random()*22, speed:0.6+Math.random()*1.2, opacity:0.4+Math.random()*0.5});
 }
 
-function drawHeart(x, y, size, opacity, angle) {
-  ctx.save();
-  ctx.globalAlpha = opacity;
-  ctx.translate(x, y);
-  ctx.rotate(angle);
-  ctx.fillStyle = '#e6396b';
-  ctx.beginPath();
-  ctx.moveTo(0, size * 0.4);
-  ctx.bezierCurveTo(-size*0.7, -size*0.6, -size*1.2, size*0.3, 0, size*1.1);
-  ctx.bezierCurveTo(size*1.2, size*0.3, size*0.7, -size*0.6, 0, size*0.4);
-  ctx.fill();
-  ctx.restore();
-}
-
-function animate() {
-  ctx.clearRect(0, 0, W, H);
+function animateBG(){
+  ctx.clearRect(0,0,W,H);
   hearts.forEach(h => {
     h.y += h.speed;
-    h.angle += h.angleSpeed;
-    if (h.y > H) h.y = -50;
-    drawHeart(h.x, h.y, h.size, h.opacity, h.angle);
+    if(h.y > H) h.y = -30;
+    ctx.globalAlpha = h.opacity;
+    ctx.font = `${h.size}px serif`;
+    ctx.fillText('❤', h.x, h.y);
   });
-  requestAnimationFrame(animate);
+  requestAnimationFrame(animateBG);
 }
-animate();
+animateBG();
 
-// Iniciar
+// Tab Navigation
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if(btn.classList.contains('locked')) return;
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Start
 function startJourney() {
   document.getElementById('introScreen').style.display = 'none';
   document.getElementById('tabBar').style.display = 'flex';
   document.getElementById('musicPlayer').style.display = 'flex';
   
-  if (apiReady && player) {
+  if(apiReady && player){
     player.playVideo();
     isPlaying = true;
     document.getElementById('playPauseBtn').textContent = '❚❚';
   }
+  
+  // Unlock first tab content
+  document.getElementById('home').classList.add('active');
 }
+
+// Add missing tab contents (you can expand later)
+document.body.innerHTML += `
+<div id="home" class="tab-content active" style="text-align:center;">
+  <h1 style="font-size:3.5rem;color:var(--gold);margin:2rem 0;">Eu te amo 💕</h1>
+  <p style="font-size:1.4rem;max-width:600px;margin:0 auto;">Cada segundo ao seu lado é o melhor presente que a vida me deu.</p>
+</div>
+
+<div id="journey" class="tab-content">Conteúdo da Jornada...</div>
+<div id="memories" class="tab-content">Galeria de Memórias...</div>
+<div id="loveGames" class="tab-content">Jogos do Coração...</div>
+<div id="finalLetter" class="tab-content">Carta Eterna...</div>
+`;
 </script>
 </body>
 </html>
