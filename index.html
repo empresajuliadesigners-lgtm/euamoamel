@@ -3,26 +3,30 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>Julinha ✦ Mel</title>
+<title>Julinha ✦ Mel — Nossa Constelação</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Parisienne&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg1:#060714;
-  --bg2:#0c0e28;
-  --bg3:#1a1240;
-  --bg4:#241338;
-  --honey:#e7a53d;
-  --honey-soft:#f8cf7c;
-  --honey-deep:#c9782a;
-  --lilac:#a894f2;
-  --lilac-soft:#d3c4ff;
-  --rose:#e59ba8;
-  --cream:#f7f0de;
-  --text:#ece7f8;
-  --text-soft:#b7b0d9;
-  --text-dim:#7d789f;
-  --gold:#e7a53d;
-  --gold-soft:#f8cf7c;
+  --bg1:#05070f;
+  --bg2:#0b0f27;
+  --bg3:#141a42;
+  --gold:#e0b464;
+  --gold-soft:#f3d99a;
+  --honey:#d9932e;
+  --honey-glow:#f0b649;
+  --lilac:#b9a6ff;
+  --lilac-soft:#d8ceff;
+  --rose:#e8a6c1;
+  --cream:#f6f1e6;
+  --text:#e7e3f5;
+  --text-soft:#b6b0d9;
+  --text-dim:#7d7aa8;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+}
+button:focus-visible, .hidden-card:focus-visible, .album-item:focus-visible, .mem-card:focus-visible{
+  outline:2px solid var(--gold-soft); outline-offset:3px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -40,32 +44,13 @@ body{
 /* ═══ CARD BADGE ═══ */
 #cardBadge{
   position:fixed; top:64px; right:0.8rem; z-index:900;
-  background:rgba(12,14,40,0.85); backdrop-filter:blur(10px);
-  border:1px solid rgba(231,165,61,0.35); border-radius:9999px;
+  background:rgba(11,15,39,0.85); backdrop-filter:blur(10px);
+  border:1px solid rgba(224,180,100,0.35); border-radius:9999px;
   padding:0.4rem 0.9rem; font-family:'Cinzel',serif; font-size:0.72rem;
-  color:var(--honey-soft); letter-spacing:0.05em;
-  box-shadow:0 0 20px rgba(231,165,61,0.15);
+  color:var(--gold-soft); letter-spacing:0.05em;
+  box-shadow:0 0 20px rgba(224,180,100,0.15);
   display:flex; align-items:center; gap:0.35rem;
 }
-
-/* ═══ SIGNATURE: GOTA DE MEL → ESTRELA ═══ */
-.honey-drop{
-  position:relative; width:14px; height:18px; display:inline-block;
-  background:linear-gradient(160deg,var(--honey-soft),var(--honey-deep));
-  border-radius:0 60% 60% 60%; transform:rotate(45deg);
-  box-shadow:0 0 10px rgba(231,165,61,0.7);
-  animation:dropPulse 2.4s ease-in-out infinite;
-}
-@keyframes dropPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
-.jm-mark{
-  display:flex; align-items:center; justify-content:center; gap:0.5rem;
-  font-family:'Cinzel',serif; letter-spacing:0.3em; text-transform:uppercase;
-  font-size:clamp(0.62rem,2vw,0.75rem); color:var(--text-dim);
-}
-.jm-mark .jm-line{width:26px; height:1px; background:linear-gradient(90deg,transparent,rgba(231,165,61,0.6));}
-.jm-mark .jm-line.r{background:linear-gradient(90deg,rgba(168,148,242,0.6),transparent);}
-.jm-mark b{color:var(--honey-soft); font-weight:700;}
-.jm-mark i{font-style:normal; color:var(--lilac-soft);}
 
 /* ═══ TABS ═══ */
 #tabBar{
@@ -164,7 +149,18 @@ body{
     radial-gradient(ellipse 50% 40% at 15% 85%, rgba(224,180,100,0.1) 0%, transparent 60%),
     linear-gradient(180deg,#05070f 0%,#0b0f27 45%,#141a42 75%,#05070f 100%);
 }
+.hero::before{
+  content:''; position:absolute; top:8%; left:50%; width:min(90vw,560px); height:220px;
+  transform:translateX(-50%); pointer-events:none; z-index:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%, rgba(240,182,73,0.16) 0%, rgba(185,166,255,0.12) 45%, transparent 75%);
+  filter:blur(30px); animation:auraPulse 6s ease-in-out infinite;
+}
+@keyframes auraPulse{0%,100%{opacity:0.7; transform:translateX(-50%) scale(1)}50%{opacity:1; transform:translateX(-50%) scale(1.08)}}
+.couple-names, .hero-eyebrow, .hero-title, .hero-sub, .ts-wrap{position:relative; z-index:1;}
 .hero-eyebrow{font-family:'Parisienne',cursive; font-size:clamp(1.1rem,3.8vw,1.6rem); color:var(--lilac); letter-spacing:0.08em; margin-bottom:0.6rem; opacity:0; animation:fadeUp 1s 0.2s forwards; text-shadow:0 0 20px rgba(185,166,255,0.5);}
+.couple-names{font-family:'Cinzel',serif; font-size:clamp(0.95rem,3.2vw,1.3rem); letter-spacing:0.12em; text-transform:uppercase; color:var(--cream); display:flex; align-items:center; justify-content:center; gap:clamp(0.5rem,2vw,0.9rem); margin-bottom:1rem; opacity:0; animation:fadeUp 1s 0.05s forwards;}
+.couple-names .cn-star{color:var(--honey-glow); font-size:0.85em; filter:drop-shadow(0 0 10px rgba(240,182,73,0.7)); animation:twinkleBig 1.8s infinite;}
+.couple-names .cn-name{background:linear-gradient(135deg,var(--gold-soft),var(--honey-glow)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
 .hero-title{font-family:'Cinzel',serif; font-size:clamp(2.1rem,9vw,5.2rem); font-weight:700; line-height:1.1; color:var(--cream); opacity:0; animation:fadeUp 1s 0.5s forwards; text-shadow:0 0 40px rgba(224,180,100,0.2);}
 .hero-title em{font-style:normal; background:linear-gradient(135deg,#e0b464,#f3d99a,#b9a6ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 20px rgba(224,180,100,0.4));}
 .hero-sub{font-size:clamp(0.95rem,2.6vw,1.2rem); font-style:italic; font-weight:300; margin-top:1.2rem; max-width:480px; line-height:1.85; color:var(--text-soft); opacity:0; animation:fadeUp 1s 0.8s forwards;}
@@ -423,10 +419,10 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 <!-- ══════════ TAB 1: HOME ══════════ -->
 <section id="home" class="tab-page active">
   <div class="hero">
-    <div class="jm-mark" style="opacity:0;animation:fadeUp 1s 0s forwards;"><span class="jm-line"></span><span class="honey-drop"></span><b>Julinha</b> <i>&amp;</i> <b>Mel</b><span class="jm-line r"></span></div>
-    <div class="hero-eyebrow">uma jornada até o meu coração</div>
+    <div class="couple-names"><span class="cn-name">Julinha</span><span class="cn-star">✦</span><span class="cn-name">Mel</span></div>
+    <div class="hero-eyebrow">uma jornada até o coração da minha Mel</div>
     <h1 class="hero-title">Nossa <em>Constelação</em></h1>
-    <p class="hero-sub">Mel, espalhei enigmas, joguinhos e cartinhas escondidas pelo caminho até você. Resolva tudo, encontre as estrelas escondidas, e no final tem uma carta esperando só por você.</p>
+    <p class="hero-sub">Espalhei enigmas, joguinhos e cartinhas escondidas pelo caminho, meu amor. Resolva tudo, encontre as estrelas escondidas, e no final tem uma carta esperando só por você.</p>
 
     <div class="ts-wrap">
       <div class="ts-label-top">há quanto tempo brilhamos juntos</div>
@@ -441,7 +437,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
         <div class="ts-unit"><span class="ts-num" id="ts-m">00</span><span class="ts-lbl">m</span></div>
         <div class="ts-unit"><span class="ts-num" id="ts-s">00</span><span class="ts-lbl">s</span></div>
       </div>
-      <div class="start-date-txt">contando desde 07 de abril de 2026 ✦ o dia em que tudo começou</div>
+      <div class="start-date-txt">contando desde 07 de abril de 2026 ✦ o dia em que tudo começou entre a gente</div>
     </div>
 
     <div class="scroll-hint"><span>⌄</span>role para ver o mapa</div>
@@ -451,7 +447,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
     <div class="sec-inner">
       <span class="sec-tag">como funciona</span>
       <h2 class="sec-title">O mapa da <em>jornada</em></h2>
-      <p class="prose">Mel, esse site é um caminho, não um atalho. Cada aba só abre depois que você conquista a anterior — e no meio do caminho tem cartinhas escondidas te esperando. Fica de olho ✦</p>
+      <p class="prose">Esse site é um caminho, não um atalho. Cada aba só abre depois que você conquista a anterior — e no meio do caminho tem cartinhas escondidas te esperando. Fica de olho ✦</p>
       <div class="road-steps">
         <div class="road-step"><span class="rs-num">01</span><h3>🔭 Enigmas</h3><p>Resolva os mistérios do céu para abrir a próxima aba.</p></div>
         <div class="road-step"><span class="rs-num">02</span><h3>🎮 Jogos</h3><p>Quatro joguinhos te esperam. Vença todos.</p></div>
@@ -463,15 +459,15 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 
   <section class="content-sec reasons-sec reveal" style="position:relative;">
     <div class="sec-inner">
-      <span class="sec-tag">antes de você começar</span>
+      <span class="sec-tag">antes de você começar, Mel</span>
       <h2 class="sec-title">Motivos que me fazem <em>te amar</em></h2>
       <div class="cards-grid">
-        <div class="card"><span class="card-icon">🌙</span><h3>Seu jeito calmo</h3><p>Você acalma até os meus dias mais bagunçados, Mel.</p></div>
+        <div class="card"><span class="card-icon">🌙</span><h3>Seu jeito calmo</h3><p>Você acalma até os meus dias mais bagunçados.</p></div>
         <div class="card"><span class="card-icon">⭐</span><h3>Seu sorriso</h3><p>Ilumina mais do que qualquer estrela que eu já vi.</p></div>
-        <div class="card"><span class="card-icon">🍯</span><h3>Sua doçura</h3><p>Seu nome já é a prova: você adoça tudo ao redor.</p></div>
+        <div class="card"><span class="card-icon">🍯</span><h3>Seu nome</h3><p>Mel — doce até no jeito de ser chamada.</p></div>
         <div class="card"><span class="card-icon">✨</span><h3>Sua força</h3><p>Você enfrenta tudo com uma leveza que me inspira.</p></div>
         <div class="card"><span class="card-icon">💌</span><h3>Seu carinho</h3><p>Do jeitinho que você cuida de mim, mesmo longe.</p></div>
-        <div class="card"><span class="card-icon">☄️</span><h3>Nosso encontro</h3><p>Ainda bem que os astros conspiraram a nosso favor, desde 07/04.</p></div>
+        <div class="card"><span class="card-icon">☄️</span><h3>Nosso encontro</h3><p>Ainda bem que os astros conspiraram a favor da Julinha e da Mel.</p></div>
       </div>
     </div>
     <div class="hidden-card" id="card1" style="top:6%; left:4%;" data-msg="0">✦</div>
@@ -480,7 +476,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 
   <footer style="position:relative;">
     <span class="footer-star">✦</span>
-    <p>feito com amor pela Julinha, sob o mesmo céu que você, Mel ✦</p>
+    <p>feito pela Julinha, com amor, sob o mesmo céu que a Mel ✦</p>
     <div class="hidden-card" id="card3" style="top:20%; left:48%;" data-msg="2">✦</div>
   </footer>
   <div class="hidden-card" id="card4" style="top:14%; left:85%;" data-msg="3">✦</div>
@@ -491,7 +487,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 <section id="riddles" class="tab-page" style="position:relative;">
   <div class="rp-head">
     <h1>🔭 Enigmas do Céu</h1>
-    <p>Decifre os 5 mistérios, Mel, para abrir a aba dos Jogos</p>
+    <p>Mel, decifre os 5 mistérios para abrir a aba dos Jogos</p>
   </div>
   <div id="progressDots">
     <div class="p-dot" id="rdot1"></div><div class="p-dot" id="rdot2"></div><div class="p-dot" id="rdot3"></div><div class="p-dot" id="rdot4"></div><div class="p-dot" id="rdot5"></div>
@@ -610,15 +606,16 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 <div id="bigLetterModal">
   <div class="big-letter-inner">
     <div class="big-letter-deco">✦</div>
-    <h2 class="big-letter-title">Para <em>Mel</em>, minha estrela mais doce</h2>
-    <div class="big-letter-date">de Julinha, com todo o universo que existe em mim</div>
+    <h2 class="big-letter-title">Para <em>você</em>, minha Mel</h2>
+    <div class="big-letter-date">da Julinha, com todo o universo que existe em mim</div>
     <div class="big-letter-body">
       <span class="salutation">Meu amor,</span>
-      <p>Se você chegou até aqui, é porque decifrou meus enigmas, venceu meus jogos e catou as estrelinhas que espalhei pelo caminho. E isso, de um jeito bobo e sincero, é exatamente como eu me sinto tentando te merecer: <strong>disposta a atravessar qualquer desafio.</strong></p>
-      <p>Essa jornada toda foi só um pretexto. Um jeito diferente de te dizer o que eu sinto todos os dias, desde 07 de abril de 2026: que você é o motivo de eu olhar pro céu e sorrir sozinha, que penso em você antes de dormir e logo que acordo, e que a distância, quando existe, nunca foi maior que a vontade de estar com você.</p>
-      <p>Você é <strong>calma em forma de gente</strong>, é a constelação que eu escolheria enxergar entre todas as outras. E ainda por cima leva o nome mais doce que existe — porque é exatamente assim que você adoça a minha vida. Com você as coisas mais simples viram as minhas favoritas — uma ligação boba, um bom dia mandado com carinho, um "senti sua falta" no meio do dia.</p>
+      <p>Se você chegou até aqui, é porque decifrou meus enigmas, venceu meus jogos e catou as estrelinhas que espalhei pelo caminho. E isso, de um jeito bobo e sincero, é exatamente como eu me sinto tentando merecer você: <strong>disposta a atravessar qualquer desafio.</strong></p>
+      <p>Essa jornada toda foi só um pretexto. Um jeito diferente de te dizer o que eu sinto todos os dias: que você é o motivo de eu olhar pro céu e sorrir sozinha, que penso em você antes de dormir e logo que acordo, e que a distância, quando existe, nunca foi maior que a vontade de estar com você.</p>
+      <p>Você é <strong>calma em forma de gente</strong> — e olha que seu nome já avisava, doce como mel. É a constelação que eu escolheria enxergar entre todas as outras. Com você as coisas mais simples viram as minhas favoritas: uma ligação boba, um bom dia mandado com carinho, um "senti sua falta" no meio do dia.</p>
+      <p>Desde 07 de abril de 2026 — o dia em que tudo começou entre a gente — cada mês que passa só confirma o que eu já sabia: que valeu a pena cada passo até chegar em você.</p>
       <p>Eu não sei te prometer um caminho sem nuvens. Mas prometo estar aqui, inteira, pra atravessar tudo ao seu lado — os dias fáceis e os difíceis, os planos grandes e as tardes de nada. <strong>Com você, tudo fica mais leve.</strong></p>
-      <p>Obrigada por existir do jeito que você existe. Obrigada por me deixar fazer parte da sua história. Eu te amo — hoje, sempre, e em todas as estrelas que ainda vamos contar juntas.</p>
+      <p>Obrigada por existir do jeito que você existe. Obrigada por me deixar fazer parte da sua história. Eu te amo, Mel — hoje, sempre, e em todas as estrelas que ainda vamos contar juntas.</p>
     </div>
     <div class="big-letter-divider"></div>
     <p class="big-letter-sign">com todo o meu universo ✦<br><em style="font-size:0.82em;color:var(--text-dim)">— sua Julinha</em></p>
@@ -631,7 +628,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
   <div class="album-inner">
     <div class="album-head">
       <div class="ah-deco">🖼️</div>
-      <h2>Julinha <em style="font-style:normal;color:var(--gold-soft);">&amp;</em> Mel</h2>
+      <h2>Nossos <em style="font-style:normal;color:var(--gold-soft);">momentos</em></h2>
       <p>cada foto aqui é um pedacinho da nossa história ✦</p>
     </div>
     <div class="album-grid" id="albumGrid"></div>
@@ -817,12 +814,12 @@ const cardMessages = [
   'Você tornou minha vida mais brilhante 💫',
   'Quero contar todas as estrelas do céu com você 🌠',
   'Cada segundo ao seu lado vale um universo inteiro 💛',
-  'Desde 07/04, você é meu destino favorito ✦',
-  'Meu coração bate em órbita ao seu 🪐',
+  'Você é meu destino favorito ✦',
+  'Meu coração bate em órbita ao seu, Mel 🪐',
   'Com você, qualquer lugar vira lar 🏡✨',
   'Você é a luz que eu sigo mesmo nas noites escuras 🌙',
-  'Ainda bem que o universo colocou você no meu caminho, Mel ☄️',
-  'Essa jornada toda foi só um pretexto da Julinha pra te lembrar o quanto te ama 💌'
+  'Ainda bem que o universo colocou a Mel no meu caminho ☄️',
+  'Essa jornada toda foi só um pretexto pra te lembrar o quanto a Julinha te ama 💌'
 ];
 const TOTAL_CARDS = cardMessages.length;
 const NEED_CARDS = 10;
@@ -881,8 +878,8 @@ function updateGallery(){
    RIDDLES (ENIGMAS)
 ════════════════════════════════ */
 const riddleData = [
-  {q:'Não tenho asas, mas viajo mais rápido que qualquer estrela cadente quando penso em você, Mel. O que sou?', opts:['Um foguete','Um pensamento','Um cometa','Um satélite'], correct:1, msg:'Isso! Meu pensamento em você não conhece distância nem velocidade ✨'},
-  {q:'Sou dourado, doce e uma abelha trabalha a vida toda pra me fazer. Curiosamente, é também o seu nome. O que sou?', opts:['Açúcar','Mel','Ouro','Caramelo'], correct:1, msg:'Isso mesmo — e você adoça minha vida bem mais que qualquer pote 🍯'},
+  {q:'Não tenho asas, mas viajo mais rápido que qualquer estrela cadente quando penso em você. O que sou?', opts:['Um foguete','Um pensamento','Um cometa','Um satélite'], correct:1, msg:'Isso! Meu pensamento em você não conhece distância nem velocidade ✨'},
+  {q:'Quanto mais escuro o céu, mais fácil me encontrar. Existo há bilhões de anos, mas comparo minha luz à sua. O que sou?', opts:['Uma estrela','A lua','Um vagalume','Um holofote'], correct:0, msg:'Exato! E mesmo assim, seu brilho ainda ganha 🌟'},
   {q:'Não peso nada, mas seguro duas pessoas juntas mesmo a quilômetros de distância. O que sou?', opts:['Uma corda','O amor','Um fio de náilon','Uma promessa'], correct:1, msg:'O amor não tem peso, mas segura tudo 💛'},
   {q:'Nasço no fim do dia e desapareço quando você acorda, mas moro nos meus sonhos com você. O que sou?', opts:['A lua','A noite','Um sonho','Uma estrela cadente'], correct:2, msg:'Isso! E em todos eles, você está presente ✨'},
   {q:'Tenho fases, cresço e minguo, mas nunca deixo de te iluminar nas noites mais escuras. O que sou?', opts:['O sol','A lua','Uma vela','Um farol'], correct:1, msg:'A lua, assim como eu, nunca deixa de brilhar por você 🌙'},
@@ -954,10 +951,11 @@ function updateGamesProgress(){
 const hangWords = [
   {w:'SAUDADE', hint:'O que sinto quando você não está por perto'},
   {w:'CARINHO', hint:'Aquilo que sobra até nos gestos pequenos'},
-  {w:'DESTINO', hint:'O que nos fez esbarrar um no outro'},
+  {w:'DESTINO', hint:'O que nos fez esbarrar uma na outra'},
   {w:'ABRACO', hint:'O que eu mais quero te dar agora'},
   {w:'ESTRELA', hint:'Brilha no céu, mas menos que você'},
   {w:'CONSTELACAO', hint:'Um grupo de estrelas que conta uma história — como a nossa'},
+  {w:'MEL', hint:'Seu nome, e também a coisa mais doce que eu conheço'},
 ];
 let hangWord='', hangGuessed=new Set(), hangWrong=0;
 const HANG_MAX=6;
@@ -1158,10 +1156,10 @@ document.getElementById('memStart').addEventListener('click', buildMemory);
 const quizData = [
   {q:'Mel, o que você sente quando pensa na Julinha?', opts:['Felicidade','Borboletas no estômago','Vontade de sorrir','Tudo isso! 💛'], correct:3, msg:'Exatamente tudo que ela sente por você! 💛'},
   {q:'Nosso amor é...', opts:['Qualquer coisa','Incrível e especial','Normal','Passageiro'], correct:1, msg:'O nosso amor é único e imenso como o céu 🌌'},
-  {q:'Quando a saudade aperta, o que ela faz?', opts:['Me afasta','Me faz querer mais','Me deixa triste','Não sinto nada'], correct:1, msg:'A saudade é só amor que não cabe no peito ✨'},
-  {q:'O que a Julinha mais quer agora?', opts:['Dormir','Um abraço seu','Assistir série','Comer algo'], correct:1, msg:'Isso mesmo, ela quer muito te abraçar 🪐'},
+  {q:'Quando a saudade aperta, o que ela faz?', opts:['Afasta','Faz querer mais','Deixa triste','Não sinto nada'], correct:1, msg:'A saudade é só amor que não cabe no peito ✨'},
+  {q:'O que a Mel mais quer agora?', opts:['Dormir','Um abraço da Julinha','Assistir série','Comer algo'], correct:1, msg:'A Julinha também quer muito te abraçar 🪐'},
   {q:'Se você fosse uma estrela, seria...', opts:['Discreta','A mais brilhante do céu','Cadente','Distante'], correct:1, msg:'Com certeza a mais brilhante — pra ela, sempre foi 🌟'},
-  {q:'Desde 07/04/2026, nosso próximo capítulo vai ser...', opts:['Incerto','Cheio de aventuras juntos','Igual o anterior','Não sei'], correct:1, msg:'Cheio de aventuras, mão na mão, sempre 💫'},
+  {q:'Nosso próximo capítulo vai ser...', opts:['Incerto','Cheio de aventuras juntas','Igual o anterior','Não sei'], correct:1, msg:'Cheio de aventuras, mão na mão, sempre 💫'},
 ];
 let qIdx=0, qAnswered=false;
 function showQuestion(){
@@ -1252,6 +1250,9 @@ document.getElementById('bigLetterModal').addEventListener('click', e=>{
 ════════════════════════════════ */
 /* ✏️ EDITE AQUI: liste os nomes dos arquivos que estão dentro da pasta "fotos/"
    (a pasta "fotos" deve ficar no mesmo diretório que este index.html).
+   Já deixei 10 espaços prontos — troque foto1.jpg, foto2.jpg etc pelos nomes
+   reais dos seus arquivos. Quiser colocar mais de 10? É só adicionar novas
+   linhas seguindo o mesmo padrão 'fotos/nomeDoArquivo.jpg'.
    Aceita fotos (jpg, jpeg, png, webp, gif) e vídeos (mp4, mov, webm). */
 const albumFiles = [
   'fotos/foto1.jpg',
@@ -1264,8 +1265,6 @@ const albumFiles = [
   'fotos/foto8.jpg',
   'fotos/foto9.jpg',
   'fotos/foto10.jpg',
-  // quer colocar mais? é só seguir o padrão acima (ou 'fotos/video1.mp4' para vídeos)
-  // aceita: jpg, jpeg, png, webp, gif, mp4, mov, webm
 ];
 
 const videoExts = ['mp4','mov','webm','m4v'];
