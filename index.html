@@ -250,13 +250,16 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 #hangHint{text-align:center; font-size:0.82rem; color:var(--text-dim); font-style:italic; margin-bottom:0.4rem;}
 #hangResult{text-align:center; font-family:'Parisienne',cursive; font-size:1.1rem; color:var(--gold-soft); min-height:1.6em; margin-top:0.6rem;}
 
-/* simon */
-#simonPad{display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; max-width:260px; margin:1rem auto;}
-.simon-btn{aspect-ratio:1; border-radius:18px; border:2px solid rgba(255,79,195,0.25); font-size:2rem; display:flex; align-items:center; justify-content:center; cursor:pointer; background:rgba(26,5,18,0.6); transition:transform 0.15s, filter 0.15s; filter:brightness(0.7);}
-.simon-btn.lit{filter:brightness(1.6); transform:scale(1.05);}
-.simon-btn:active{transform:scale(0.96);}
-#simonStatus{text-align:center; font-family:'Parisienne',cursive; font-size:1.05rem; color:var(--gold-soft); min-height:1.6em; margin-top:0.7rem;}
-#simonLevel{text-align:center; font-size:0.82rem; color:var(--text-dim); margin-bottom:0.3rem;}
+/* chuva de estrelas */
+#rainArea{position:relative; height:280px; margin:0.8rem auto 0.6rem; max-width:460px; background:radial-gradient(ellipse at 50% 0%, rgba(255,47,176,0.08) 0%, transparent 70%), rgba(10,0,6,0.35); border:1px solid rgba(255,79,195,0.2); border-radius:18px; overflow:hidden; touch-action:manipulation;}
+.rain-item{position:absolute; top:-40px; font-size:1.6rem; cursor:pointer; user-select:none; filter:drop-shadow(0 0 8px rgba(255,79,195,0.6)); transition:top linear, opacity 0.25s, transform 0.25s; will-change:top;}
+.rain-item.caught{opacity:0; transform:scale(1.8) rotate(20deg); pointer-events:none;}
+.rain-item.bomb{filter:drop-shadow(0 0 8px rgba(130,15,45,0.7));}
+#rainHud{display:flex; align-items:center; justify-content:space-between; max-width:460px; margin:0 auto; font-size:0.85rem; color:var(--text-dim);}
+#rainLives{letter-spacing:0.15em;}
+#rainLives span.lost{opacity:0.15;}
+#rainScore{font-family:'Cinzel',serif; color:var(--gold-soft);}
+#rainStatus{text-align:center; font-family:'Parisienne',cursive; font-size:1.05rem; color:var(--gold-soft); min-height:1.6em; margin-top:0.6rem;}
 
 /* memory */
 .mem-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0.6rem; max-width:420px; margin:1rem auto; perspective:600px;}
@@ -267,6 +270,15 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 .mem-card.flipped,.mem-card.matched{transform:rotateY(180deg);}
 .mem-card.matched{opacity:0.55; cursor:default;}
 #memStatus{text-align:center; font-family:'Parisienne',cursive; font-size:1.05rem; color:var(--gold-soft); min-height:1.6em; margin-top:0.8rem;}
+
+/* puzzle deslizante */
+#puzzleGrid{display:grid; grid-template-columns:repeat(3,1fr); gap:0.4rem; max-width:270px; margin:1rem auto; aspect-ratio:1;}
+.pz-tile{aspect-ratio:1; border-radius:12px; border:1px solid rgba(255,79,195,0.3); background:linear-gradient(150deg,rgba(255,47,176,0.22),rgba(45,10,36,0.7)); color:var(--gold-soft); font-family:'Cinzel',serif; font-size:clamp(1.3rem,5vw,1.9rem); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform 0.15s, background 0.2s; box-shadow:0 0 12px rgba(255,79,195,0.15);}
+.pz-tile:hover{transform:scale(1.04); background:linear-gradient(150deg,rgba(255,47,176,0.35),rgba(45,10,36,0.7));}
+.pz-tile.pz-empty{background:transparent; border:1px dashed rgba(255,79,195,0.15); box-shadow:none; cursor:default;}
+.pz-tile.pz-solved{background:linear-gradient(150deg,rgba(255,79,195,0.4),rgba(255,47,176,0.25)); color:var(--cream);}
+#puzzleStatus{text-align:center; font-family:'Parisienne',cursive; font-size:1.05rem; color:var(--gold-soft); min-height:1.6em; margin-top:0.8rem;}
+#puzzleMoves{text-align:center; font-size:0.78rem; color:var(--text-dim); margin-bottom:0.2rem;}
 
 /* ═══ CARDS GALLERY PAGE ═══ */
 #cards{min-height:100vh; background:linear-gradient(180deg,#0a0006 0%,#2d0a24 50%,#0a0006 100%); padding-bottom:2.5rem; position:relative;}
@@ -530,19 +542,14 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
     <div style="text-align:center;margin-top:0.8rem;"><button class="g-start-btn" id="hangStart">▶ Jogar</button></div>
   </div>
 
-  <!-- Simon -->
+  <!-- Chuva de Estrelas -->
   <div class="game-card">
-    <h2>✨ Sequência Cósmica</h2>
-    <div class="gsub">Repita a sequência de estrelas. Chegue até o nível 5 pra vencer.</div>
-    <div id="simonLevel">Nível 0 / 5</div>
-    <div id="simonPad">
-      <div class="simon-btn" data-i="0" style="background:#4a1140;">🌙</div>
-      <div class="simon-btn" data-i="1" style="background:#7a1155;">⭐</div>
-      <div class="simon-btn" data-i="2" style="background:#a1146e;">🪐</div>
-      <div class="simon-btn" data-i="3" style="background:#c2187e;">☄️</div>
-    </div>
-    <div id="simonStatus">Aperte jogar pra começar</div>
-    <div style="text-align:center;margin-top:0.6rem;"><button class="g-start-btn" id="simonStart">▶ Jogar</button></div>
+    <h2>🌠 Chuva de Estrelinhas</h2>
+    <div class="gsub">Toque nas estrelas antes que caiam. Evite os buraquinhos negros ⚫ e capture 12 pra vencer.</div>
+    <div id="rainHud"><span id="rainScore">0 / 12 ✦</span><span id="rainLives">♥ ♥ ♥</span></div>
+    <div id="rainArea"></div>
+    <div id="rainStatus">Aperte jogar pra começar</div>
+    <div style="text-align:center;margin-top:0.6rem;"><button class="g-start-btn" id="rainStart">▶ Jogar</button></div>
   </div>
 
   <!-- Memory -->
@@ -554,15 +561,14 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
     <div style="text-align:center;margin-top:0.6rem;"><button class="g-start-btn" id="memStart">▶ Jogar</button></div>
   </div>
 
-  <!-- Quiz -->
+  <!-- Puzzle Deslizante -->
   <div class="game-card">
-    <h2>💫 Quiz do Amor</h2>
-    <div class="gsub">6 perguntas sobre a gente.</div>
-    <div id="quizProgress" style="text-align:center;font-size:0.78rem;color:var(--text-dim);margin-bottom:0.4rem;"></div>
-    <h2 id="quizQ" style="font-size:1rem;"></h2>
-    <div id="quizOptions"></div>
-    <div class="q-result" id="quizResult"></div>
-    <div style="text-align:center;margin-top:0.6rem;"><button class="g-start-btn" id="quizStart">▶ Jogar</button></div>
+    <h2>🧩 Quebra-Cabeça do Coração</h2>
+    <div class="gsub">Arraste as peças até formar a sequência de 1 a 8 e revele a mensagem escondida.</div>
+    <div id="puzzleMoves">0 movimentos</div>
+    <div id="puzzleGrid"></div>
+    <div id="puzzleStatus">Aperte jogar pra embaralhar</div>
+    <div style="text-align:center;margin-top:0.6rem;"><button class="g-start-btn" id="puzzleStart">▶ Jogar</button></div>
   </div>
 
   <div class="hidden-card" id="card10" style="top:5%; right:5%;" data-msg="9">✦</div>
@@ -928,14 +934,14 @@ showRiddle();
 /* ════════════════════════════════
    GAMES PROGRESS TRACKER
 ════════════════════════════════ */
-const gamesDone = {hangman:false, simon:false, memory:false, quiz:false};
+const gamesDone = {hangman:false, rain:false, memory:false, puzzle:false};
 function markGameDone(key){
   if(gamesDone[key]) return;
   gamesDone[key]=true;
   updateGamesProgress();
 }
 function updateGamesProgress(){
-  const order=['hangman','simon','memory','quiz'];
+  const order=['hangman','rain','memory','puzzle'];
   let count=0;
   order.forEach((k,i)=>{ if(gamesDone[k]){ document.getElementById('gdot'+(i+1)).classList.add('done'); count++; } });
   document.getElementById('gamesProgressLabel').textContent = count+' de 4 jogos concluídos';
@@ -1019,59 +1025,78 @@ function guessHangLetter(l,btn){
 document.getElementById('hangStart').addEventListener('click', startHangman);
 
 /* ════════════════════════════════
-   GAME 2: SEQUÊNCIA CÓSMICA (SIMON)
+   GAME 2: CHUVA DE ESTRELINHAS
 ════════════════════════════════ */
-let simonSeq=[], simonPlayerIdx=0, simonAccepting=false;
-const SIMON_TARGET=5;
-const simonPads = document.querySelectorAll('.simon-btn');
-function startSimon(){
-  simonSeq=[]; simonPlayerIdx=0;
-  document.getElementById('simonStatus').textContent='Observe a sequência...';
-  document.getElementById('simonLevel').textContent='Nível 0 / '+SIMON_TARGET;
-  simonNextRound();
+const RAIN_TARGET=12, RAIN_MAX_LIVES=3;
+let rainCaught=0, rainLives=RAIN_MAX_LIVES, rainRunning=false, rainSpawnTimer=null;
+function renderRainLives(){
+  document.getElementById('rainLives').innerHTML = '♥ '.repeat(rainLives) + '♡ '.repeat(RAIN_MAX_LIVES-rainLives);
 }
-function simonNextRound(){
-  simonSeq.push(Math.floor(Math.random()*4));
-  simonPlayerIdx=0;
-  document.getElementById('simonLevel').textContent='Nível '+simonSeq.length+' / '+SIMON_TARGET;
-  playSimonSequence();
+function renderRainScore(){
+  document.getElementById('rainScore').textContent = rainCaught+' / '+RAIN_TARGET+' ✦';
 }
-function playSimonSequence(){
-  simonAccepting=false;
-  let i=0;
-  const iv=setInterval(()=>{
-    if(i>0) simonPads[simonSeq[i-1]].classList.remove('lit');
-    if(i>=simonSeq.length){ clearInterval(iv); simonAccepting=true; document.getElementById('simonStatus').textContent='Sua vez ✦'; return; }
-    simonPads[simonSeq[i]].classList.add('lit');
-    i++;
-  },600);
+function startRain(){
+  const area=document.getElementById('rainArea');
+  area.innerHTML='';
+  rainCaught=0; rainLives=RAIN_MAX_LIVES; rainRunning=true;
+  renderRainLives(); renderRainScore();
+  document.getElementById('rainStatus').textContent='Toque nas estrelas ✦ evite os buracos negros!';
+  document.getElementById('rainStart').textContent='↻ Jogar de novo';
+  if(rainSpawnTimer) clearInterval(rainSpawnTimer);
+  rainSpawnTimer = setInterval(spawnRainItem, 750);
 }
-simonPads.forEach(pad=>{
-  pad.addEventListener('click',()=>{
-    if(!simonAccepting) return;
-    const idx = parseInt(pad.dataset.i,10);
-    pad.classList.add('lit');
-    setTimeout(()=>pad.classList.remove('lit'),200);
-    if(idx===simonSeq[simonPlayerIdx]){
-      simonPlayerIdx++;
-      if(simonPlayerIdx===simonSeq.length){
-        if(simonSeq.length>=SIMON_TARGET){
-          document.getElementById('simonStatus').textContent='🎉 Sequência perfeita! Você venceu!';
-          simonAccepting=false;
-          markGameDone('simon');
-        } else {
-          simonAccepting=false;
-          document.getElementById('simonStatus').textContent='Muito bem! Próximo nível...';
-          setTimeout(simonNextRound,1000);
-        }
-      }
-    } else {
-      simonAccepting=false;
-      document.getElementById('simonStatus').textContent='✦ Ops, errou a sequência. Tente de novo!';
-    }
+function spawnRainItem(){
+  if(!rainRunning) return;
+  const area=document.getElementById('rainArea');
+  const isBomb = Math.random() < 0.28;
+  const el=document.createElement('div');
+  el.className = 'rain-item' + (isBomb?' bomb':'');
+  el.textContent = isBomb ? '⚫' : '✦';
+  const areaWidth = area.clientWidth || 300;
+  el.style.left = Math.max(6, Math.random()*(areaWidth-36)) + 'px';
+  area.appendChild(el);
+  const duration = 2600 + Math.random()*900;
+  requestAnimationFrame(()=>{
+    el.style.transitionDuration = duration+'ms';
+    el.style.top = (area.clientHeight-40)+'px';
   });
-});
-document.getElementById('simonStart').addEventListener('click', startSimon);
+  const missTimeout = setTimeout(()=>{
+    if(!el.classList.contains('caught')){
+      el.remove();
+      if(!isBomb) loseRainLife();
+    }
+  }, duration+50);
+  el.addEventListener('click', ()=>{
+    if(el.classList.contains('caught')) return;
+    el.classList.add('caught');
+    clearTimeout(missTimeout);
+    if(isBomb){
+      loseRainLife();
+    } else {
+      rainCaught++;
+      renderRainScore();
+      if(rainCaught>=RAIN_TARGET) finishRain(true);
+    }
+    setTimeout(()=>el.remove(),300);
+  });
+}
+function loseRainLife(){
+  rainLives--;
+  renderRainLives();
+  if(rainLives<=0) finishRain(false);
+}
+function finishRain(won){
+  rainRunning=false;
+  clearInterval(rainSpawnTimer);
+  document.getElementById('rainArea').innerHTML='';
+  if(won){
+    document.getElementById('rainStatus').textContent='🎉 Você capturou todas as estrelas!';
+    markGameDone('rain');
+  } else {
+    document.getElementById('rainStatus').textContent='💔 As estrelas escaparam... Tente de novo!';
+  }
+}
+document.getElementById('rainStart').addEventListener('click', startRain);
 
 /* ════════════════════════════════
    GAME 3: MEMÓRIA (CORRIGIDO)
@@ -1151,54 +1176,70 @@ function flipMemCard(card){
 document.getElementById('memStart').addEventListener('click', buildMemory);
 
 /* ════════════════════════════════
-   GAME 4: QUIZ DO AMOR
+   GAME 4: QUEBRA-CABEÇA DESLIZANTE
 ════════════════════════════════ */
-const quizData = [
-  {q:'Mel, o que você sente quando pensa na Julinha?', opts:['Felicidade','Borboletas no estômago','Vontade de sorrir','Tudo isso! 💛'], correct:3, msg:'Exatamente tudo que ela sente por você! 💛'},
-  {q:'Nosso amor é...', opts:['Qualquer coisa','Incrível e especial','Normal','Passageiro'], correct:1, msg:'O nosso amor é único e imenso como o céu 🌌'},
-  {q:'Quando a saudade aperta, o que ela faz?', opts:['Afasta','Faz querer mais','Deixa triste','Não sinto nada'], correct:1, msg:'A saudade é só amor que não cabe no peito ✨'},
-  {q:'O que a Mel mais quer agora?', opts:['Dormir','Um abraço da Julinha','Assistir série','Comer algo'], correct:1, msg:'A Julinha também quer muito te abraçar 🪐'},
-  {q:'Se você fosse uma estrela, seria...', opts:['Discreta','A mais brilhante do céu','Cadente','Distante'], correct:1, msg:'Com certeza a mais brilhante — pra ela, sempre foi 🌟'},
-  {q:'Nosso próximo capítulo vai ser...', opts:['Incerto','Cheio de aventuras juntas','Igual o anterior','Não sei'], correct:1, msg:'Cheio de aventuras, mão na mão, sempre 💫'},
-];
-let qIdx=0, qAnswered=false;
-function showQuestion(){
-  if(qIdx>=quizData.length){
-    document.getElementById('quizQ').textContent='🎉 Quiz completo! Somos feitos um pro outro!';
-    document.getElementById('quizOptions').innerHTML='';
-    document.getElementById('quizProgress').textContent='';
-    document.getElementById('quizResult').textContent='';
-    document.getElementById('quizStart').textContent='▶ Jogar de novo';
-    markGameDone('quiz');
-    return;
-  }
-  const q=quizData[qIdx];
-  document.getElementById('quizProgress').textContent = `Pergunta ${qIdx+1} de ${quizData.length}`;
-  document.getElementById('quizQ').textContent = q.q;
-  document.getElementById('quizResult').textContent='';
-  qAnswered=false;
-  const opts=document.getElementById('quizOptions');
-  opts.innerHTML='';
-  q.opts.forEach((o,i)=>{
-    const btn=document.createElement('button');
-    btn.className='quiz-opt';
-    btn.textContent=o;
-    btn.addEventListener('click',()=>{
-      if(qAnswered) return;
-      qAnswered=true;
-      document.querySelectorAll('#quizOptions .quiz-opt').forEach((b,j)=>{
-        if(j===q.correct) b.classList.add('correct'); else b.classList.add('wrong');
-      });
-      document.getElementById('quizResult').textContent = i===q.correct ? q.msg : 'Não existe resposta errada no amor 💛 '+q.msg;
-      setTimeout(()=>{ qIdx++; showQuestion(); },1800);
-    });
-    opts.appendChild(btn);
+let pzTiles=[], pzMoves=0, pzWon=false; // 3x3: 0..7 = peças, 8 = vazio
+function pzSolvedArray(){ return [0,1,2,3,4,5,6,7,8]; }
+function isSolvable(arr){
+  // conta inversões ignorando o vazio (8)
+  const nums = arr.filter(n=>n!==8);
+  let inv=0;
+  for(let i=0;i<nums.length;i++) for(let j=i+1;j<nums.length;j++) if(nums[i]>nums[j]) inv++;
+  return inv%2===0;
+}
+function shuffledPuzzle(){
+  let arr;
+  do{
+    arr = pzSolvedArray().slice();
+    for(let i=arr.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
+  } while(!isSolvable(arr) || arr.join(',')===pzSolvedArray().join(','));
+  return arr;
+}
+function buildPuzzle(){
+  pzTiles = shuffledPuzzle();
+  pzMoves = 0; pzWon=false;
+  document.getElementById('puzzleMoves').textContent = '0 movimentos';
+  document.getElementById('puzzleStatus').textContent = 'Arraste as peças pra ordenar!';
+  document.getElementById('puzzleStart').textContent = '↻ Embaralhar de novo';
+  renderPuzzle();
+}
+function renderPuzzle(){
+  const grid = document.getElementById('puzzleGrid');
+  grid.innerHTML='';
+  pzTiles.forEach((val,pos)=>{
+    const tile=document.createElement('div');
+    if(val===8){
+      tile.className='pz-tile pz-empty';
+    } else {
+      tile.className='pz-tile'+(pzWon?' pz-solved':'');
+      tile.textContent = val+1;
+      tile.addEventListener('click',()=>movePuzzleTile(pos));
+    }
+    grid.appendChild(tile);
   });
 }
-document.getElementById('quizStart').addEventListener('click',()=>{
-  qIdx=0; showQuestion();
-  document.getElementById('quizStart').textContent='▶ Reiniciar';
-});
+function movePuzzleTile(pos){
+  if(pzWon) return;
+  const emptyPos = pzTiles.indexOf(8);
+  const row=Math.floor(pos/3), col=pos%3;
+  const eRow=Math.floor(emptyPos/3), eCol=emptyPos%3;
+  const isAdjacent = (row===eRow && Math.abs(col-eCol)===1) || (col===eCol && Math.abs(row-eRow)===1);
+  if(!isAdjacent) return;
+  [pzTiles[pos],pzTiles[emptyPos]] = [pzTiles[emptyPos],pzTiles[pos]];
+  pzMoves++;
+  document.getElementById('puzzleMoves').textContent = pzMoves+' movimento'+(pzMoves===1?'':'s');
+  renderPuzzle();
+  if(pzTiles.join(',')===pzSolvedArray().join(',')){
+    pzWon=true;
+    document.getElementById('puzzleStatus').textContent = '🎉 Quebra-cabeça resolvido! A mensagem escondida era vocês duas, sempre 💛';
+    renderPuzzle();
+    markGameDone('puzzle');
+  }
+}
+document.getElementById('puzzleStart').addEventListener('click', buildPuzzle);
 
 /* ════════════════════════════════
    LETTER STARS BURST
