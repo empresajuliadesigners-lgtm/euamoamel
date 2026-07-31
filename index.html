@@ -154,9 +154,9 @@ body{
 .compass-deco{
   position:absolute; top:6%; left:50%; transform:translateX(-50%);
   width:min(70vw,420px); height:min(70vw,420px); z-index:0;
-  opacity:0.16; animation:compassSpin 90s linear infinite;
+  opacity:0.22;
 }
-@keyframes compassSpin{from{transform:translateX(-50%) rotate(0)}to{transform:translateX(-50%) rotate(360deg)}}
+.parallax-star{position:absolute; font-size:0.9rem; color:var(--gold-bright); opacity:0.35; pointer-events:none; z-index:0; transition:transform 0.05s linear;}
 .couple-names, .hero-eyebrow, .hero-title, .hero-sub, .ts-wrap{position:relative; z-index:1;}
 .hero-eyebrow{font-family:'Parisienne',cursive; font-size:clamp(1.05rem,3.6vw,1.5rem); color:var(--parchment-dim); letter-spacing:0.06em; margin-bottom:0.6rem; opacity:0; animation:fadeUp 1s 0.2s forwards;}
 .couple-names{font-family:'Marcellus',serif; font-size:clamp(0.82rem,2.8vw,1.05rem); letter-spacing:0.28em; text-transform:uppercase; color:var(--text); display:flex; align-items:center; justify-content:center; gap:clamp(0.5rem,2vw,0.9rem); margin-bottom:1rem; opacity:0; animation:fadeUp 1s 0.05s forwards;}
@@ -228,6 +228,19 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 .quiz-opt.wrong{background:rgba(177,89,47,0.15); border-color:rgba(177,89,47,0.3); color:rgba(99,112,140,0.6);}
 .q-result{text-align:center; font-family:'Parisienne',cursive; font-size:1.1rem; color:var(--gold-bright); min-height:1.8em; margin-top:0.4rem;}
 
+.astro-wrap{position:relative; width:min(72vw,230px); height:min(72vw,230px); margin:0.6rem auto 1.2rem;}
+.astro-wrap::before{content:''; position:absolute; inset:0; border-radius:50%; border:1px dashed var(--panel-line);}
+.astro-wrap::after{content:''; position:absolute; inset:16%; border-radius:50%; border:1px solid var(--panel-line);}
+.astro-pointer{position:absolute; top:-16px; left:50%; transform:translateX(-50%); color:var(--gold-bright); font-size:1rem; z-index:5;}
+.astro-hub{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:34px; height:34px; border-radius:50%; background:rgba(201,162,75,0.15); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; color:var(--gold-bright); font-size:0.85rem; pointer-events:none; z-index:4;}
+.astro-ring{position:absolute; inset:0; border-radius:50%; cursor:grab; touch-action:none;}
+.astro-ring:active{cursor:grabbing;}
+.astro-ring.locked{cursor:default; pointer-events:none;}
+.astro-opt{position:absolute; top:50%; left:50%; width:clamp(90px,26vw,120px); margin-left:calc(clamp(90px,26vw,120px) / -2); margin-top:-15px; text-align:center; font-family:'Cormorant Garamond',serif; font-size:clamp(0.72rem,2.4vw,0.85rem); color:var(--text-soft); background:rgba(10,18,32,0.72); border:1px solid var(--panel-line); border-radius:2px; padding:0.3rem 0.45rem; pointer-events:none; transition:background .3s,border-color .3s,color .3s;}
+.astro-opt.correct{background:rgba(201,162,75,0.28); border-color:var(--gold-bright); color:var(--star-white);}
+.astro-opt.wrong{background:rgba(177,89,47,0.2); border-color:var(--copper); color:rgba(99,112,140,0.75);}
+.astro-hint{text-align:center; font-size:0.76rem; color:var(--text-dim); font-style:italic; margin-top:0.3rem; margin-bottom:0.9rem; font-family:'Marcellus',serif; letter-spacing:0.02em;}
+
 /* ═══ PROVAS (JOGOS) ═══ */
 #games{min-height:100vh; background:linear-gradient(180deg,#0a1220 0%,#152640 50%,#0a1220 100%); padding-bottom:2rem; position:relative;}
 .game-card{background:rgba(21,38,64,0.55); border:1px solid var(--panel-line); border-radius:3px; padding:clamp(1.2rem,4vw,2rem); margin:0 auto 2rem; max-width:600px; position:relative;}
@@ -288,6 +301,10 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 .const-dot{fill:var(--text-dim); opacity:0.45; transition:fill 0.4s, opacity 0.4s;}
 .const-dot.found{fill:var(--gold-bright); opacity:1;}
 .const-line{stroke:var(--gold-bright); stroke-width:1.3; opacity:0.8;}
+.const-line-new{animation:constLineIn 0.9s ease both;}
+@keyframes constLineIn{from{opacity:0; stroke-width:0.2;}to{opacity:0.8; stroke-width:1.3;}}
+.const-dot.pop{animation:constDotPop 0.5s ease;}
+@keyframes constDotPop{0%{r:1;}60%{r:6.5;}100%{r:4.5;}}
 .const-caption{text-align:center; font-family:'Parisienne',cursive; font-size:0.95rem; color:var(--text-dim); margin-top:0.6rem;}
 
 .gallery-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr)); gap:0.8rem; max-width:760px; margin:1.6rem auto; padding:0 1rem;}
@@ -302,6 +319,21 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 .envelope{position:relative; width:clamp(200px,55vw,300px); margin:0 auto 1.4rem; cursor:pointer; transition:transform 0.3s;}
 .envelope:hover{transform:scale(1.04) rotate(-1deg);}
 .envelope svg{width:100%; display:block;}
+.envelope.breaking{animation:sealCrack 0.5s ease both;}
+@keyframes sealCrack{0%{transform:scale(1) rotate(0)}30%{transform:scale(1.08) rotate(-3deg)}60%{transform:scale(0.97) rotate(2deg)}100%{transform:scale(1.15) rotate(0); opacity:0.4;}}
+#sealCircle{transform-origin:160px 100px; transition:transform 0.3s;}
+.envelope.breaking #sealCircle{transform:scale(1.3) rotate(25deg);}
+
+.big-letter-body p{opacity:0; transform:translateY(14px); animation:letterLineIn 0.7s ease forwards;}
+.big-letter-body p:nth-of-type(1){animation-delay:0.9s;}
+.big-letter-body p:nth-of-type(2){animation-delay:1.5s;}
+.big-letter-body p:nth-of-type(3){animation-delay:2.1s;}
+.big-letter-body p:nth-of-type(4){animation-delay:2.7s;}
+.big-letter-body p:nth-of-type(5){animation-delay:3.3s;}
+.big-letter-body p:nth-of-type(6){animation-delay:3.9s;}
+@keyframes letterLineIn{to{opacity:1; transform:translateY(0);}}
+.type-cursor{display:inline-block; width:2px; background:var(--gold-bright); margin-left:2px; animation:cursorBlink 0.9s step-end infinite;}
+@keyframes cursorBlink{50%{opacity:0;}}
 
 #bigLetterModal{display:none; position:fixed; inset:0; z-index:2000; background:rgba(8,13,22,0.95); backdrop-filter:blur(12px); align-items:flex-start; justify-content:center; overflow-y:auto; padding:2rem 1rem;}
 #bigLetterModal.open{display:flex;}
@@ -347,6 +379,34 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 .lb-close{top:1.2rem; right:1.2rem;}
 .lb-prev{left:1.2rem; top:50%; transform:translateY(-50%);}
 .lb-next{right:1.2rem; top:50%; transform:translateY(-50%);}
+
+/* ═══ DIÁRIO DE BORDO ═══ */
+#logToggle{
+  position:fixed; bottom:5.6rem; left:0.8rem; z-index:998;
+  width:44px; height:44px; border-radius:50%; background:rgba(13,22,38,0.92);
+  border:1px solid var(--gold); color:var(--gold-bright); font-size:1.15rem;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 24px rgba(0,0,0,0.5); transition:transform 0.2s;
+}
+#logToggle:hover{transform:scale(1.08);}
+#logToggle.has-new::after{
+  content:''; position:absolute; top:2px; right:2px; width:9px; height:9px;
+  border-radius:50%; background:var(--copper); box-shadow:0 0 6px rgba(177,89,47,0.8);
+}
+#logPanel{
+  position:fixed; bottom:9.8rem; left:0.8rem; z-index:997; width:min(84vw,320px);
+  max-height:52vh; background:rgba(11,19,33,0.96); backdrop-filter:blur(18px);
+  border:1px solid var(--panel-line); border-radius:4px; padding:1rem 1.1rem;
+  box-shadow:0 10px 40px rgba(0,0,0,0.55);
+  transform:translateY(12px) scale(0.97); opacity:0; pointer-events:none;
+  transition:transform 0.3s, opacity 0.3s; display:flex; flex-direction:column; gap:0.5rem;
+}
+#logPanel.open{transform:translateY(0) scale(1); opacity:1; pointer-events:auto;}
+.log-head{font-family:'Cinzel',serif; font-size:0.85rem; color:var(--gold-bright); border-bottom:1px solid var(--panel-line); padding-bottom:0.5rem; letter-spacing:0.04em;}
+#logEntries{overflow-y:auto; max-height:38vh; display:flex; flex-direction:column; gap:0.55rem;}
+.log-entry{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.85rem; color:var(--text-soft); line-height:1.5; border-left:2px solid var(--gold); padding-left:0.6rem; opacity:0; animation:logIn 0.5s ease forwards;}
+@keyframes logIn{from{opacity:0; transform:translateX(-6px);}to{opacity:1; transform:translateX(0);}}
+.log-empty{font-size:0.82rem; color:var(--text-dim); font-style:italic;}
 
 /* ═══ BARRA DE MÚSICA ═══ */
 .music-bar{position:fixed; bottom:1.2rem; right:0.8rem; left:0.8rem; z-index:998; display:flex; align-items:center; gap:0.55rem; background:rgba(13,22,38,0.92); backdrop-filter:blur(20px); border:1px solid var(--panel-line); border-radius:3px; padding:0.45rem 1rem 0.45rem 0.45rem; box-shadow:0 4px 30px rgba(0,0,0,0.5); max-width:480px; margin:0 auto;}
@@ -396,21 +456,28 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
 <!-- ══════════ TAB 1: HOME (DIÁRIO DE BORDO) ══════════ -->
 <section id="home" class="tab-page active">
   <div class="hero">
-    <svg class="compass-deco" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg class="compass-deco" id="compassSvg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <circle cx="100" cy="100" r="92" fill="none" stroke="#c9a24b" stroke-width="0.6"/>
       <circle cx="100" cy="100" r="70" fill="none" stroke="#c9a24b" stroke-width="0.4"/>
-      <g stroke="#e8c674" stroke-width="0.6">
+      <g stroke="#e8c674" stroke-width="0.4" opacity="0.6">
         <line x1="100" y1="6" x2="100" y2="194"/>
         <line x1="6" y1="100" x2="194" y2="100"/>
         <line x1="30" y1="30" x2="170" y2="170"/>
         <line x1="170" y1="30" x2="30" y2="170"/>
       </g>
-      <polygon points="100,20 108,100 100,180 92,100" fill="#c9a24b" opacity="0.5"/>
+      <g id="needleGroup" style="transform-origin:100px 100px;">
+        <polygon points="100,20 108,100 100,105 92,100" fill="#e8c674"/>
+        <polygon points="100,180 108,100 100,95 92,100" fill="#b1592f"/>
+      </g>
       <text x="100" y="16" text-anchor="middle" font-size="10" fill="#e8c674" font-family="Cinzel">N</text>
       <text x="100" y="192" text-anchor="middle" font-size="10" fill="#e8c674" font-family="Cinzel">S</text>
       <text x="12" y="103" text-anchor="middle" font-size="10" fill="#e8c674" font-family="Cinzel">O</text>
       <text x="188" y="103" text-anchor="middle" font-size="10" fill="#e8c674" font-family="Cinzel">L</text>
     </svg>
+    <span class="parallax-star" style="top:12%;left:14%;" data-depth="0.08">✦</span>
+    <span class="parallax-star" style="top:22%;right:12%;" data-depth="0.05">✦</span>
+    <span class="parallax-star" style="top:68%;left:8%;" data-depth="0.09">✦</span>
+    <span class="parallax-star" style="top:74%;right:16%;" data-depth="0.04">✦</span>
     <div class="couple-names"><span>Julinha</span><span class="cn-star">✦</span><span>Mel</span></div>
     <div class="hero-eyebrow">um atlas traçado até o coração da minha Mel</div>
     <h1 class="hero-title">Nossa <em>Constelação</em></h1>
@@ -587,7 +654,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
       <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
         <rect x="5" y="15" width="310" height="195" rx="4" fill="#152640" stroke="#c9a24b" stroke-width="1.5"/>
         <polygon points="5,15 160,130 315,15" fill="#1b3350" stroke="#c9a24b" stroke-width="1.5"/>
-        <circle cx="160" cy="100" r="16" fill="#b1592f" opacity="0.95"/>
+        <circle id="sealCircle" cx="160" cy="100" r="16" fill="#b1592f" opacity="0.95"/>
         <text x="160" y="107" text-anchor="middle" font-size="18" fill="#f2e6c8">✦</text>
       </svg>
     </div>
@@ -602,7 +669,7 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
     <h2 class="big-letter-title">Para <em>você</em>, minha Mel</h2>
     <div class="big-letter-date">da Julinha, com todo o universo que existe em mim</div>
     <div class="big-letter-body">
-      <span class="salutation">Meu amor,</span>
+      <span class="salutation" id="letterSalutation"></span>
       <p>Se você chegou até aqui, é porque decifrou meus enigmas, venceu minhas provas e catou as cartas estelares que espalhei pelo caminho. E isso, de um jeito bobo e sincero, é exatamente como eu me sinto tentando merecer você: <strong>disposta a atravessar qualquer desafio.</strong></p>
       <p>Essa jornada toda foi só um pretexto. Um jeito diferente de te dizer o que eu sinto todos os dias: que você é o motivo de eu olhar pro céu e sorrir sozinha, que penso em você antes de dormir e logo que acordo, e que a distância, quando existe, nunca foi maior que a vontade de estar com você.</p>
       <p>Você é <strong>calma em forma de gente</strong> — e olha que seu nome já avisava, doce como mel. É a constelação que eu escolheria enxergar entre todas as outras. Com você as coisas mais simples viram as minhas favoritas: uma ligação boba, um bom dia mandado com carinho, um "senti sua falta" no meio do dia.</p>
@@ -652,6 +719,13 @@ footer p{font-family:'Parisienne',cursive; font-size:clamp(0.9rem,2.5vw,1.1rem);
   <h2 id="unlockTitle">Aba desbloqueada!</h2>
   <p id="unlockText">Você conquistou o próximo passo da rota.</p>
   <button class="unlock-go-btn" id="unlockGoBtn">Continuar ✦</button>
+</div>
+
+<!-- DIÁRIO DE BORDO -->
+<button id="logToggle" title="Diário de bordo">📜</button>
+<div id="logPanel">
+  <div class="log-head">Diário de Bordo</div>
+  <div id="logEntries"><p class="log-empty">a jornada ainda não começou...</p></div>
 </div>
 
 <!-- MUSIC BAR -->
@@ -737,6 +811,51 @@ function animStars(){
   requestAnimationFrame(animStars);
 }
 animStars();
+
+/* ════════════════════════════════
+   BÚSSOLA INTERATIVA + PARALLAX (hero)
+════════════════════════════════ */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduceMotion){
+  let needleAngle=0, targetAngle=0, lastPointerTime=0;
+  function updateNeedle(){
+    const now = performance.now();
+    if(now - lastPointerTime < 2000){
+      let diff = ((targetAngle - needleAngle + 540) % 360) - 180;
+      needleAngle += diff*0.12;
+    } else {
+      needleAngle += 0.045;
+    }
+    const ng = document.getElementById('needleGroup');
+    if(ng) ng.style.transform = `rotate(${needleAngle}deg)`;
+    requestAnimationFrame(updateNeedle);
+  }
+  requestAnimationFrame(updateNeedle);
+
+  const heroEl = document.querySelector('.hero');
+  const parallaxStars = document.querySelectorAll('.parallax-star');
+  function handlePointer(clientX, clientY){
+    const svgEl = document.getElementById('compassSvg');
+    if(svgEl){
+      const rect = svgEl.getBoundingClientRect();
+      const cx = rect.left+rect.width/2, cy = rect.top+rect.height/2;
+      targetAngle = Math.atan2(clientY-cy, clientX-cx)*180/Math.PI + 90;
+      lastPointerTime = performance.now();
+    }
+    const dx = (clientX/window.innerWidth - 0.5);
+    const dy = (clientY/window.innerHeight - 0.5);
+    parallaxStars.forEach(el=>{
+      const depth = parseFloat(el.dataset.depth)||0.05;
+      el.style.transform = `translate(${dx*depth*260}px, ${dy*depth*260}px)`;
+    });
+  }
+  if(heroEl){
+    heroEl.addEventListener('pointermove', e=> handlePointer(e.clientX,e.clientY));
+    heroEl.addEventListener('touchmove', e=>{
+      if(e.touches[0]) handlePointer(e.touches[0].clientX, e.touches[0].clientY);
+    }, {passive:true});
+  }
+}
 
 /* ════════════════════════════════
    TIMESTAMP
